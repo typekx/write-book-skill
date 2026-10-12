@@ -1,0 +1,15 @@
+# Temporary editor files
+~$*
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Local Obsidian configuration; Markdown notes stay versioned
+.obsidian/
+
+# Local environment data
+.env
+.env.*
+!.env.example

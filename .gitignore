@@ -1,0 +1,10 @@
+# The author's local material and working files
+manuscripts/
+private/
+outputs/
+work/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db

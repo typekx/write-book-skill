@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write a Book"
+  short_description: "Series, author's style, modular writing, continuity; commands write, next, audit, check"
+  default_prompt: "Use $write-book status"

@@ -1,0 +1,24 @@
+{
+  "typography": "en",
+  "digitsOnlyInItalics": false,
+  "noSquareBrackets": true,
+  "minWords": null,
+  "maxWords": null,
+  "wordsByUnitType": {
+    "Prologue": { "min": null, "max": null },
+    "Chapter": { "min": null, "max": null },
+    "Interlude": { "min": null, "max": null },
+    "Epilogue": { "min": null, "max": null }
+  },
+  "minVolumeWords": null,
+  "maxWordDropPct": 3,
+  "limits": [
+    { "name": "example: phrase banned by the author", "phrase": "in a way", "max": 0 },
+    { "name": "example: tic with word endings", "phrase": "somehow*", "max": 2 },
+    { "builtin": "antithesis", "max": 1 },
+    { "builtin": "it-was-not", "max": 0 },
+    { "builtin": "colon-reveal", "max": 1 },
+    { "builtin": "triple-anaphora", "max": 0 }
+  ],
+  "bannedNames": []
+}
