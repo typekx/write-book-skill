@@ -9,6 +9,7 @@ A template to fill in with facts from the request and the author's material. Mar
 - Language, tone and promise to the reader:
 - Narration, point of view and tense:
 - Current stage: plan / draft / editing / finished edition.
+- Working mode: light / full (and why):
 - Scope of the current order:
 
 ## Sources and decisions

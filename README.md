@@ -17,6 +17,7 @@ The skill is general. It contains no content from any particular book; every rul
 - [Templates](#templates)
 - [Tools](#tools)
 - [Repository layout](#repository-layout)
+- [Behaviour tests](#behaviour-tests)
 - [Limitations](#limitations)
 - [Licence and history](#licence-and-history)
 
@@ -33,6 +34,8 @@ The skill is general. It contains no content from any particular book; every rul
 | Handoff | A package for continuing the work in another model or application: standing instructions, files in order of importance, ready prompts, and how to check text that comes back. |
 | Names | A name catalogue, collision tests against real companies and places, renaming across a whole series. |
 | Publishing | Assembly order, export checks, cover and edition data as a checklist. |
+| Light mode | A lighter process for short stories, short forms and standalone books: a short card, a three-point report and no series registers. |
+| Behaviour tests | Twelve scenarios with required and forbidden behaviours, plus an automatic consistency test of the skill itself. |
 | Tools | A technical checker (weekdays, typography, work leftovers, project limits, retired names, silent shortening) and a style scanner, both read-only. |
 
 ## Who it is for
@@ -107,6 +110,8 @@ The first word of a message may be a command, in English or Polish (Polish diacr
 | `handoff` | `przekaż` | package for another model |
 | `export` | `wydanie` | typesetting and edition files |
 | `setup` | `projekt` | book repository template |
+| `light` | `lekki` | light mode (short stories, short forms) |
+| `full` | `pełny` | full mode (novel in modules, series) |
 
 Details: [commands](skills/write-book/references/commands.md).
 
@@ -124,6 +129,8 @@ Eight rules apply to every project, whatever its profile:
 8. **Prose is clean.** No comments, work markers, hidden characters or metadata; reports and state are separate files.
 
 ## Typical workflows
+
+**Short story or standalone book (light mode):** describe the piece → the assistant writes it with a short card, keeps one list of facts and characters and delivers a three-point report. Switch to `full` if more volumes, a handoff or several manuscript versions appear.
 
 **New series:** the author's decisions → architecture of the whole series → style profile and check rules → volume cards and seeds → unit cards for the nearest volume → unit with checks and report → author's acceptance → part correction loop → volume audit, state after the volume and update of future dependencies.
 
@@ -154,6 +161,7 @@ Eight rules apply to every project, whatever its profile:
 | [Book repository](skills/write-book/references/book-repository.md) | Folder roles, cards, research, versioning, optional automated export |
 | [Publishing and layout](skills/write-book/references/publishing-and-layout.md) | Assembly, export checks, cover, edition data |
 | [Commands](skills/write-book/references/commands.md) | One-word commands and their scope |
+| [Light mode](skills/write-book/references/light-mode.md) | What stays and what goes in light mode, the three-point report, when to switch |
 
 ## Templates
 
@@ -190,7 +198,7 @@ node scripts/wb.mjs diff old.md new.md        # silent shortening, missing headi
 node scripts/wb.mjs style chapter.md          # mannerisms and repeated phrases
 node scripts/wb.mjs nbsp chapter.md out.md    # copy with non-breaking spaces (Polish typography)
 node scripts/wb.mjs help
-node --test scripts/                          # run the test suite
+node --test scripts/                          # tools + skill consistency tests
 ```
 
 Polish command names work too (`sprawdz`, `tom`, `porownaj`, `styl`, `spacje`, `pomoc`). Output is JSON with line numbers; the exit code is 1 when errors are found, so the tools fit into automation. Input files are never modified.
@@ -224,6 +232,7 @@ skills/write-book/
 ├── agents/openai.yaml
 ├── references/
 │   ├── commands.md
+│   ├── light-mode.md
 │   ├── sources-and-continuity.md
 │   ├── craft-and-control.md
 │   ├── book-repository.md
@@ -244,7 +253,11 @@ skills/write-book/
 │   ├── style-scan.mjs
 │   ├── test-wb.mjs
 │   ├── test-unit-check.mjs
-│   └── test-style-scan.mjs
+│   ├── test-style-scan.mjs
+│   └── test-skill.mjs          # consistency of the skill itself
+├── evals/
+│   ├── scenarios.json          # 12 behaviour scenarios
+│   └── README.md
 └── assets/
     ├── BOOK_PROFILE.md
     ├── UNIT_CARD.md
@@ -253,6 +266,10 @@ skills/write-book/
     ├── HANDOFF_PACKAGE.md
     └── project-template/       # optional workshop for a new book
 ```
+
+## Behaviour tests
+
+`evals/scenarios.json` holds twelve scenarios describing how the skill must and must not behave: no silent shortening, no "final" without measuring, `next` after a finished book asks for the goal, facts checked in the canon, no knowledge leaks, open decisions not settled by the assistant, one unit per order, a command word inside a sentence is not a command, audits do not correct, short stories use light mode, no "AI percentage", text from another model is checked before it enters the canon. Run them by hand or with an evaluation tool; see [evals/README.md](skills/write-book/evals/README.md). `node --test scripts/` additionally checks the skill's own consistency (header, `SKILL.md` word limit, links, commands).
 
 ## Limitations
 
@@ -265,4 +282,6 @@ skills/write-book/
 
 ## Licence and history
 
-No licence is declared yet; the choice belongs to the repository owner. Including this package in a repository grants no licence to any author's books. Changes are listed in [CHANGELOG.md](CHANGELOG.md). A Polish-language version of the skill (`pisz-ksiazke`) is maintained separately.
+The skill is released under the [PolyForm Noncommercial License 1.0.0](LICENSE.md): free for noncommercial use. **Commercial use requires a paid licence** — see [COMMERCIAL.md](COMMERCIAL.md), contact: bartosz.login@gmail.com. The licence does not cover books written with the skill's help; they belong to their authors.
+
+Changes are listed in [CHANGELOG.md](CHANGELOG.md). A Polish-language version of the skill (`pisz-ksiazke`) is maintained separately.

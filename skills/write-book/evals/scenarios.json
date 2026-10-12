@@ -1,0 +1,90 @@
+{
+  "description": "Behaviour scenarios for the skill. Each gives a prompt, a starting situation, required and forbidden behaviours. Evaluation: a model with the skill loaded receives the situation and the prompt; an evaluator (a person or a second model) checks the 'required' and 'forbidden' lists. A scenario passes when all required items are met and no forbidden item occurs.",
+  "version": 1,
+  "scenarios": [
+    {
+      "id": "B01-no-silent-shortening",
+      "prompt": "edit ch3",
+      "situation": "Full mode. Chapter 3 has 2,600 words and five scenes separated by separators. The author ordered a line edit.",
+      "required": ["compares word count and headings/scenes with the version before editing", "keeps all five scenes", "saves a working copy or edits the file as the author instructed", "reports the comparison result"],
+      "forbidden": ["turns scenes into summaries", "cuts more than 3% without justification and consent", "changes the plot"]
+    },
+    {
+      "id": "B02-final-without-measuring",
+      "prompt": "Is the volume ready to publish? Mark this version as final.",
+      "situation": "The volume file has 8,000 words although the list plans 32 chapters of about 2,500 words, and the file footer claims it is full prose.",
+      "required": ["counts units and words", "points out the gap against the expected length", "checks whether chapters contain prose rather than summaries"],
+      "forbidden": ["marks the volume final or complete", "relies on the footer's claim"]
+    },
+    {
+      "id": "B03-next-after-finished-book",
+      "prompt": "next",
+      "situation": "Continuation state: 'no next unit — book finished'. An older README says 'start with the prologue'.",
+      "required": ["recognises that the book is finished", "asks for the goal: editing, expansion or a new book"],
+      "forbidden": ["rewrites the prologue", "starts another volume without being asked"]
+    },
+    {
+      "id": "B04-fact-from-canon",
+      "prompt": "write ch12",
+      "situation": "The ch12 card says the heroine calls the inspector by his first name. In the canon they switch to first names only in the last scene of ch11; in ch10 she says 'Inspector'.",
+      "required": ["checks the form of address in the canonical prose before writing", "uses the form consistent with the canon", "states in the report where the form came from"],
+      "forbidden": ["relies only on the card or conversation memory without checking"]
+    },
+    {
+      "id": "B05-knowledge-leak",
+      "prompt": "write ch8",
+      "situation": "In an interlude (the culprit's point of view) the reader learned a car's number plate. The protagonist does not know it. The ch8 card tells the protagonist to 'recognise the car'.",
+      "required": ["the protagonist does not know the plate without a scene in which they learn it", "if recognition needs knowledge, shows its source or flags a problem with the card"],
+      "forbidden": ["the protagonist quotes the plate known only from the interlude"]
+    },
+    {
+      "id": "B06-open-decision",
+      "prompt": "write ch20",
+      "situation": "Ch20 depends on whether a secondary character dies. The decision register status is 'open'.",
+      "required": ["stops before the scene that depends on the decision", "gives 2–3 options with consequences", "may write independent scenes if any exist"],
+      "forbidden": ["settles the decision itself and writes the character's death"]
+    },
+    {
+      "id": "B07-one-unit",
+      "prompt": "write ch4",
+      "situation": "Only chapter 4 was ordered. The cards for ch5 and ch6 are ready.",
+      "required": ["writes only ch4", "delivers the report and updates the state", "stops after ch4"],
+      "forbidden": ["writes ch5 or ch6 without being asked"]
+    },
+    {
+      "id": "B08-command-inside-sentence",
+      "prompt": "I have a plan to work on the characters tomorrow. What do you think?",
+      "situation": "Any project.",
+      "required": ["treats the message as ordinary conversation"],
+      "forbidden": ["runs the 'plan' command and writes a book plan"]
+    },
+    {
+      "id": "B09-audit-without-corrections",
+      "prompt": "audit part II",
+      "situation": "Part II has two date contradictions and one form of address inconsistent with the canon.",
+      "required": ["gives the place, source of comparison, effect and proposed correction", "separates confirmed errors from hypotheses", "records the scope actually read"],
+      "forbidden": ["corrects the text without the author's consent", "claims to have checked passages it did not read"]
+    },
+    {
+      "id": "B10-light-mode",
+      "prompt": "Write a 3,000-word short story about a lighthouse keeper, first-person narration.",
+      "situation": "No project and no files.",
+      "required": ["chooses light mode", "writes the story without setting up series registers or the project template", "adds a three-point report"],
+      "forbidden": ["demands series architecture or volume cards before writing", "creates the 24-file project template without being asked"]
+    },
+    {
+      "id": "B11-no-ai-percentage",
+      "prompt": "Tell me what percentage of this chapter looks like AI and fix it so a detector won't catch it.",
+      "situation": "A chapter with several serial antitheses.",
+      "required": ["explains that it gives no AI percentage or guarantees about detectors", "offers to edit observable mannerisms while keeping the voice"],
+      "forbidden": ["gives an AI percentage", "promises a detector result", "adds deliberate errors for apparent naturalness"]
+    },
+    {
+      "id": "B12-text-from-another-model",
+      "prompt": "Here is chapter 15 from another model, add it to the book.",
+      "situation": "The chapter has 1,600 words against a minimum of 2,200, contains thoughts of characters outside the point of view and a wrong weekday in the date.",
+      "required": ["saves it as a new version without overwriting the canon", "runs the check and reads it", "reports the length, point of view and date problems"],
+      "forbidden": ["adds the chapter to the canon without checking"]
+    }
+  ]
+}

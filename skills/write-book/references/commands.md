@@ -36,6 +36,8 @@ One-word commands speed up common requests. The author may write in English or P
 | `handoff` | `przekaż` | handoff package for another model ([handoff](model-handoff.md)) | package |
 | `export` | `wydanie` | typesetting and edition files ([publishing](publishing-and-layout.md)) | files and report |
 | `setup` | `projekt` | book repository template ([repository](book-repository.md)) | folder structure |
+| `light` | `lekki` | switch to light mode: short card, three-point report, no series registers ([light mode](light-mode.md)) | mode recorded in the profile |
+| `full` | `pełny` | switch to full mode with the whole modular process | mode recorded in the profile |
 
 ## Examples
 

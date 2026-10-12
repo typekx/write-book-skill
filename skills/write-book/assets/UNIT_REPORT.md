@@ -1,5 +1,7 @@
 # Unit report
 
+In light mode the three-point report from `references/light-mode.md` is enough. The full version follows.
+
 Unit, version, date of work, prose file and scope of the task:
 
 Status: awaiting acceptance / accepted / accepted with notes / to be rewritten.

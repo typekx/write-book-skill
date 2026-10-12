@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.0 — 12 October 2026
+
+### Added
+
+- Light mode (`light`/`lekki`) for short stories, short forms, standalone books and quick edits: short card, three-point report, no series registers (`references/light-mode.md`); `full`/`pełny` restores the full process.
+- `evals/scenarios.json`: 12 behaviour scenarios with required and forbidden reactions, and instructions for running them.
+- `scripts/test-skill.mjs`: automatic consistency check of the skill (header, `SKILL.md` word limit, links, command coverage, scenario format).
+- PolyForm Noncommercial 1.0.0 licence and commercial licence terms (`COMMERCIAL.md`).
+
+### Changed
+
+- `SKILL.md` shortened from about 2,000 to about 1,200 words: the command table became a list; details stay in the modules.
+
 ## 1.0.0 — 12 October 2026
 
 First English release, equivalent to the Polish skill `pisz-ksiazke` 3.2.0.
