@@ -2,7 +2,7 @@
 name: write-book
 description: "Design books and multi-volume series, analyse and preserve the author's style, write and edit prose unit by unit with checks of canon, character knowledge, immersion and formulaic mannerisms. Also use for series bibles, chapter cards, handing work over to another model, proper names, research, audits and whole-volume edits, continuity scans, author feedback sessions, project organisation and KDP publishing. Understands one-word commands in English and Polish (write/pisz, next/dalej, audit/audyt, check/sprawdź…). Has a light mode for short stories and short forms."
 metadata:
-  version: "1.2.0"
+  version: "3.6.0"
 ---
 
 # Write a book

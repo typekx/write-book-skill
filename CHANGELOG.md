@@ -1,6 +1,8 @@
 # Changelog
 
-## 1.2.0 — 5 November 2026
+## 3.6.0 — 5 November 2026
+
+From this release the English and Polish skills share version numbers: English 3.6.0 = Polish `pisz-ksiazke` 3.6.0 (this release was briefly tagged 1.2.0). Earlier English releases 1.0.0 and 1.1.0 correspond to Polish 3.2.0 and 3.3.0.
 
 Brings the English skill level with the Polish `pisz-ksiazke` 3.6.0. Lessons from editing and publishing a five-volume series; the skill contains no content from any particular book.
 
