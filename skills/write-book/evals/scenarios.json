@@ -1,6 +1,6 @@
 {
   "description": "Behaviour scenarios for the skill. Each gives a prompt, a starting situation, required and forbidden behaviours. Evaluation: a model with the skill loaded receives the situation and the prompt; an evaluator (a person or a second model) checks the 'required' and 'forbidden' lists. A scenario passes when all required items are met and no forbidden item occurs.",
-  "version": "1.2.0",
+  "version": "3.6.0",
   "scenarios": [
     {
       "id": "B01-no-silent-shortening",
