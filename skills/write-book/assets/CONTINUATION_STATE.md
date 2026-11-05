@@ -63,3 +63,15 @@ Recurring mistakes and their source (e.g. forms of address, where objects are, t
 ## Execution history
 
 Record older entries below. Their old instructions and next steps do not replace the current summary.
+
+## Resuming after a break
+
+Fill in at every save (after a pass and every 20–30 minutes of long work):
+
+- Current pass and its status; volume file, word count, snapshot before the pass:
+- Last batch of fixes applied and where the pass got to (`progress.md`):
+- Agent identifiers and what they did:
+- Author's decisions, open and settled:
+- Next step:
+
+After a limit or a restart: read this entry, `progress.md` and the log; check in the file whether the last batch is already applied; continue from where you stopped, not from zero.

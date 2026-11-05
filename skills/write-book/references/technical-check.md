@@ -66,3 +66,32 @@ Giving several files checks each unit separately and the range as a whole: total
 ## Limitations
 
 The script does not know the canon and does not check characters' knowledge, point of view, forms of address or chronology between scenes. It does not judge style and does not detect "AI". Unix `wc -w` treats a non-breaking space as part of a word and undercounts; for comparisons with the project counter use this script or the project's counter. Dates in other formats than those listed above are not checked. A result without errors only means the checked rules are met.
+
+## Replacements: `wb.mjs patch`
+
+The only tool that changes text (`scripts/patch.mjs`). It takes a text file and a pairs file `[["old","new"], …]` (or `{"pairs":[…]}`; an empty "new" deletes the fragment; Polish keys `stary`/`nowy`/`wystapienie` also work).
+
+```sh
+node scripts/wb.mjs patch chapter.md pairs.json                                # dry run, saves nothing
+node scripts/wb.mjs patch chapter.md pairs.json --write --backup before.md     # save with a required backup
+```
+
+- Each "old" must occur in the file exactly once, unless the pair gives an occurrence number: `{"old":"He nodded.","new":"","occurrence":3}` or `["He nodded.","",3]`. This is the only way to handle short sentences repeated across a volume; take the numbers from `ticks`, do not count by hand. Give several pairs on the same sentence from the highest number down, because each deletion shifts the rest.
+- Replacements run in order, on the already-corrected text, and are **atomic**: if any pair fails, nothing changes, and the report gives the pair number and the count found.
+- A normal space in "old" also matches a non-breaking one. In "new", non-breaking spaces after one-letter words are added only if the manuscript already uses them.
+- Saving requires `--backup` and never overwrites an existing backup.
+- The report gives the pairs applied, words before and after, and **new artifacts** (double spaces, a comma before a full stop, straight quotes, a broken character). A save that creates an artifact exits with code 1: fix it before going on.
+- An empty "new" deletes the fragment with its orphaned space and, if the sentence was a whole paragraph, the empty paragraph.
+- The tool does not judge the quality of a replacement. After saving, read the changed paragraph in context ([full-volume editing](full-volume-editing.md#the-fix-loop)).
+
+## Tics and density: `wb.mjs ticks`, `wb.mjs density`
+
+Read-only. They serve the tics pass over the whole volume ([formulaic prose](formulaic-prose.md#thinning-tics-in-a-volume-and-a-series)).
+
+```sh
+node scripts/wb.mjs ticks -p 'nodded|shrugged' --context 90 volume.md          # sentences with context and occurrence number
+node scripts/wb.mjs density -p '(?:^|(?<=[.!?…] ))Then\b' V1.md V2.md V3.md    # hits per 10,000 words in each volume
+```
+
+- `ticks` returns each sentence with the pattern: line, context (¶ = paragraph break) and, when the sentence repeats in the file, an `occurrence` matching `patch`. Reading the context decides: who speaks, whether the subject stays clear after a deletion, whether the sentence carries meaning.
+- `density` compares the volumes of a series. Non-breaking spaces count as normal ones; the pattern has the `gmu` flags (`^` = line start). The levelling target is the author's leanest volume, not an arbitrary limit.

@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.2.0 — 5 November 2026
+
+Brings the English skill level with the Polish `pisz-ksiazke` 3.6.0. Lessons from editing and publishing a five-volume series; the skill contains no content from any particular book.
+
+### Added
+
+- `references/full-volume-editing.md`: editing a finished volume with themed passes over the whole text (P0–P6), the fix loop, snapshots, logs, resuming after a break, stopping rules and honest ratings.
+- `references/continuity-scan.md`: category registers K1–K6, verifier, control rounds, typical contradictions found in practice.
+- `references/feedback-verification.md`: outside feedback as a hypothesis, T/M/? certainty marks, legal, financial and technical detail.
+- `references/author-feedback-session.md`: page-by-page notes on the PDF, notes register, bulk application, the author's own corrected version.
+- `references/kdp-publishing.md`: Amazon KDP step by step (language support, series in the subtitle, ISBN and imprint, trim and paper, empty barcode zone, previewer, AI disclosure, net prices and royalties, proof).
+- `scripts/patch.mjs` and `wb.mjs patch|zamien`: atomic old → new replacements with dry run, required backup, occurrence numbers and artifact detection; `wb.mjs ticks|tiki` and `density|gestosc`.
+- `assets/PASS_LOG.md`, `assets/PASS_BRIEF.md`; resume section in `CONTINUATION_STATE.md`.
+- Commands `pass`, `scan`, `verify`; scenarios B13–B22; tests in `test-patch.mjs`.
+
+### Changed
+
+- `SKILL.md`: safeguards 6 and 9–13, module table, tool list.
+- `publishing-and-layout.md`: copyright page (statutory exceptions, TDM reservation, TDMRep), build process, measured hyphenation, runts, widows and orphans, spine, series rebuilds, publication package, home-print imposition.
+- `formulaic-prose.md`: thinning tics in a volume and a series. `model-handoff.md`: volume description for other models. `technical-check.md`: `patch`, `ticks`, `density`.
+
 ## 1.1.0 — 12 October 2026
 
 ### Added

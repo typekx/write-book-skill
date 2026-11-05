@@ -3,6 +3,7 @@ import { dirname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { analyzeTexts } from './style-scan.mjs';
 import { addHardSpaces, checkUnit, checkVolume } from './unit-check.mjs';
+import { applyPairs, pattern } from './patch.mjs';
 
 // One-word commands in English and Polish; Polish diacritics are optional.
 const COMMANDS = {
@@ -11,6 +12,9 @@ const COMMANDS = {
   diff: 'diff', porownaj: 'diff',
   style: 'style', styl: 'style',
   nbsp: 'nbsp', spacje: 'nbsp',
+  patch: 'patch', zamien: 'patch',
+  ticks: 'ticks', tiki: 'ticks',
+  density: 'density', gestosc: 'density',
   help: 'help', pomoc: 'help',
 };
 const RULE_FILES = ['check_rules.json', join('01_Project_Rules', 'check_rules.json')];
@@ -22,10 +26,16 @@ const HELP = `Usage: node scripts/wb.mjs <command> [-r rules.json] files…
   diff   | porownaj  old.md new.md           word-count drop and missing headings
   style  | styl      file.md …               scan for mannerisms and repeated phrases
   nbsp   | spacje    file.md output.md       copy with non-breaking spaces (new file)
+  patch  | zamien    file.md pairs.json      "old → new" replacements (dry run by default;
+                                           to save: --write --backup before.md, backup required)
+  ticks  | tiki      -p pattern file.md      sentences matching a regex: occurrence, line, context;
+                                           [--context N]; output ready for patch pairs with "occurrence"
+  density| gestosc   -p pattern files…       hits per 10,000 words in each file (series levelling)
   help   | pomoc                             this help
 
 Rules: -r file.json, or automatically check_rules.json (or 01_Project_Rules/check_rules.json)
-in the file's folder and up to four levels above. Output: JSON; exit code 1 on errors. Input files are never changed.
+in the file's folder and up to four levels above. Output: JSON; exit code 1 on errors. Input files are never changed,
+except by patch with --write and a backup.
 `;
 
 export function normalizeCommand(word = '') {
@@ -53,17 +63,61 @@ function load(path) {
   return { path: real, text: readFileSync(real, 'utf8') };
 }
 
+// Sentences matching a pattern, in text order. "occurrence" counts the same sentence across the whole
+// file (as patch does), so a pair {old: sentence, new, occurrence} can be copied straight across.
+export function listSentences(text, rx, context = 80) {
+  const sentences = [];
+  const lines = text.split('\n');
+  let offset = 0;
+  lines.forEach((line, li) => {
+    if (!line.startsWith('#')) {
+      for (const m of line.matchAll(/[^.!?…\n]*[.!?…]+[”"]?|[^.!?…\n]+$/gu)) {
+        const raw = m[0];
+        const sentence = raw.trim();
+        if (!sentence || !rx.test(sentence.replace(/\u00a0/g, ' '))) continue;
+        const start = offset + m.index + (raw.length - raw.trimStart().length);
+        const all = [...text.matchAll(pattern(sentence))];
+        const occurrence = all.findIndex(x => x.index === start) + 1;
+        const flat = s => s.replace(/\u00a0/g, ' ').replace(/\n/g, ' ¶ ');
+        sentences.push({
+          n: sentences.length,
+          line: li + 1,
+          sentence,
+          ...(all.length > 1 ? { occurrence } : {}),
+          context: context ? `…${flat(text.slice(Math.max(0, start - context), start))}[[${flat(sentence)}]]${flat(text.slice(start + sentence.length, start + sentence.length + Math.round(context / 2)))}…` : undefined,
+        });
+      }
+    }
+    offset += line.length + 1;
+  });
+  return { hits: sentences.length, sentences };
+}
+
 export function run(argv) {
   const [word, ...rest] = argv;
   const cmd = normalizeCommand(word);
   if (!word || cmd === 'help') return { text: HELP };
   if (!cmd) throw new Error(`Unknown command "${word}". List: node scripts/wb.mjs help`);
   let rulesPath = null;
+  let save = false;
+  let backupPath = null;
+  let pat = null;
+  let context = 80;
   const files = [];
   for (let i = 0; i < rest.length; i++) {
     if (['-r', '--rules'].includes(rest[i])) {
       if (i + 1 >= rest.length) throw new Error('Missing rules file after -r.');
       rulesPath = rest[++i];
+    } else if (['--write', '--zapisz'].includes(rest[i])) save = true;
+    else if (['--backup', '--kopia'].includes(rest[i])) {
+      if (i + 1 >= rest.length) throw new Error('Missing path after --backup.');
+      backupPath = rest[++i];
+    } else if (['-p', '-w', '--pattern', '--wzorzec'].includes(rest[i])) {
+      if (i + 1 >= rest.length) throw new Error('Missing pattern after -p.');
+      pat = rest[++i];
+    } else if (['--context', '--kontekst'].includes(rest[i])) {
+      context = Number(rest[++i]);
+      if (!Number.isInteger(context) || context < 0) throw new Error('--context takes a number of characters.');
     } else files.push(rest[i]);
   }
   if (!files.length) throw new Error('Give a file; see: node scripts/wb.mjs help');
@@ -107,6 +161,40 @@ export function run(argv) {
     if (existsSync(out)) throw new Error(`Output file already exists, not overwriting: ${files[1]}`);
     writeFileSync(out, addHardSpaces(input.text), 'utf8');
     return { report: { written: out, source: input.path }, fail: false };
+  }
+  if (cmd === 'patch') {
+    if (files.length !== 2) throw new Error('patch takes two files: text.md pairs.json');
+    const input = load(files[0]);
+    const pairs = JSON.parse(load(files[1]).text.replace(/^\uFEFF/, ''));
+    const result = applyPairs(input.text, pairs);
+    if (!result.ok) return { report: { file: input.path, written: false, errors: result.errors }, fail: true };
+    const report = { file: input.path, written: false, mode: 'dry run (nothing saved)', applied: result.applied, words: result.words, artifacts: result.artifacts };
+    if (save) {
+      if (!backupPath) throw new Error('Saving requires a backup first: --write --backup before.md');
+      const backup = resolve(backupPath);
+      if (existsSync(backup)) throw new Error(`Backup already exists, not overwriting: ${backupPath}`);
+      writeFileSync(backup, input.text, 'utf8');
+      writeFileSync(input.path, result.text, 'utf8');
+      Object.assign(report, { written: true, mode: 'saved', backup });
+    }
+    return { report, fail: result.artifacts.length > 0 && save };
+  }
+  if (cmd === 'ticks' || cmd === 'density') {
+    if (!pat) throw new Error(`${cmd} needs a pattern: -p 'nodded|shrugged'`);
+    let rx;
+    try { rx = new RegExp(pat, 'u'); } catch (e) { throw new Error(`Invalid pattern: ${e.message}`); }
+    if (cmd === 'density') {
+      const out = files.map(load).map(({ path, text }) => {
+        const flat = text.replace(/\u00a0/g, ' ');
+        const hits = [...flat.matchAll(new RegExp(pat, 'gmu'))].length;
+        const words = flat.split(/\s+/u).filter(Boolean).length;
+        return { file: path, hits, words, per10k: words ? Math.round(hits / words * 1e5) / 10 : 0 };
+      });
+      return { report: { pattern: pat, files: out }, fail: false };
+    }
+    if (files.length !== 1) throw new Error('ticks takes one file.');
+    const input = load(files[0]);
+    return { report: { file: input.path, pattern: pat, ...listSentences(input.text, rx, context) }, fail: false };
   }
   throw new Error(`Unhandled command: ${word}`);
 }

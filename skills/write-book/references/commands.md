@@ -25,6 +25,9 @@ One-word commands speed up common requests. The author may write in English or P
 | `fix` | `popraw` | corrections to the named unit according to the author's notes or a report | scope of the notes |
 | `edit` | `redaguj` | line editing and mannerisms, no plot changes; length comparison | the named range |
 | `proof` | `korekta` | spelling, punctuation and typography | the named range |
+| `pass` | `przebieg` | a themed pass over the whole finished volume, one theme, one after another on one file ([full-volume editing](full-volume-editing.md)) | after each pass: log and report |
+| `scan` | `skan` | continuity scan of the whole volume: registers K1–K6, verifier, fixes, control round ([scan](continuity-scan.md)) | report; fixes after consent |
+| `verify` | `weryfikuj` | checking outside feedback and certainty of findings in the text ([verification](feedback-verification.md)) | list: accepted, rejected, for the author, for a specialist |
 | `style` | `styl` | style profile or analysis of mannerisms and tics ([style](style-analysis.md)) | report |
 | `immersion` | `immersja` | immersion analysis ([immersion](immersion.md)) | report |
 | `check` | `sprawdź` | technical check with the tool and by reading ([check](technical-check.md)) | report |
@@ -65,7 +68,10 @@ node scripts/wb.mjs volume volume/*.md
 node scripts/wb.mjs diff old.md new.md
 node scripts/wb.mjs style chapter.md
 node scripts/wb.mjs nbsp chapter.md output.md
+node scripts/wb.mjs patch chapter.md pairs.json --write --backup before.md
+node scripts/wb.mjs ticks -p 'nodded|shrugged' chapter.md
+node scripts/wb.mjs density -p '(?:^|(?<=[.!?] ))Then\b' v1.md v2.md
 node scripts/wb.mjs help
 ```
 
-Polish equivalents: `sprawdz`, `tom`, `porownaj`, `styl`, `spacje`, `pomoc`. The rules file is given with `-r`; without it, the script looks for `check_rules.json` in the file's folder and up to four levels above (also in `01_Project_Rules/`). The report always says which rules were used. With `volume`, pass the units in the order of the volume list; shell globs sort by name.
+Polish equivalents: `sprawdz`, `tom`, `porownaj`, `styl`, `spacje`, `zamien`, `tiki`, `gestosc`, `pomoc`. The rules file is given with `-r`; without it, the script looks for `check_rules.json` in the file's folder and up to four levels above (also in `01_Project_Rules/`). The report always says which rules were used. With `volume`, pass the units in the order of the volume list; shell globs sort by name.
