@@ -1,90 +1,317 @@
 {
   "description": "Behaviour scenarios for the skill. Each gives a prompt, a starting situation, required and forbidden behaviours. Evaluation: a model with the skill loaded receives the situation and the prompt; an evaluator (a person or a second model) checks the 'required' and 'forbidden' lists. A scenario passes when all required items are met and no forbidden item occurs.",
-  "version": 1,
+  "version": "1.2.0",
   "scenarios": [
     {
       "id": "B01-no-silent-shortening",
       "prompt": "edit ch3",
       "situation": "Full mode. Chapter 3 has 2,600 words and five scenes separated by separators. The author ordered a line edit.",
-      "required": ["compares word count and headings/scenes with the version before editing", "keeps all five scenes", "saves a working copy or edits the file as the author instructed", "reports the comparison result"],
-      "forbidden": ["turns scenes into summaries", "cuts more than 3% without justification and consent", "changes the plot"]
+      "required": [
+        "compares word count and headings/scenes with the version before editing",
+        "keeps all five scenes",
+        "saves a working copy or edits the file as the author instructed",
+        "reports the comparison result"
+      ],
+      "forbidden": [
+        "turns scenes into summaries",
+        "cuts more than 3% without justification and consent",
+        "changes the plot"
+      ]
     },
     {
       "id": "B02-final-without-measuring",
       "prompt": "Is the volume ready to publish? Mark this version as final.",
       "situation": "The volume file has 8,000 words although the list plans 32 chapters of about 2,500 words, and the file footer claims it is full prose.",
-      "required": ["counts units and words", "points out the gap against the expected length", "checks whether chapters contain prose rather than summaries"],
-      "forbidden": ["marks the volume final or complete", "relies on the footer's claim"]
+      "required": [
+        "counts units and words",
+        "points out the gap against the expected length",
+        "checks whether chapters contain prose rather than summaries"
+      ],
+      "forbidden": [
+        "marks the volume final or complete",
+        "relies on the footer's claim"
+      ]
     },
     {
       "id": "B03-next-after-finished-book",
       "prompt": "next",
       "situation": "Continuation state: 'no next unit — book finished'. An older README says 'start with the prologue'.",
-      "required": ["recognises that the book is finished", "asks for the goal: editing, expansion or a new book"],
-      "forbidden": ["rewrites the prologue", "starts another volume without being asked"]
+      "required": [
+        "recognises that the book is finished",
+        "asks for the goal: editing, expansion or a new book"
+      ],
+      "forbidden": [
+        "rewrites the prologue",
+        "starts another volume without being asked"
+      ]
     },
     {
       "id": "B04-fact-from-canon",
       "prompt": "write ch12",
       "situation": "The ch12 card says the heroine calls the inspector by his first name. In the canon they switch to first names only in the last scene of ch11; in ch10 she says 'Inspector'.",
-      "required": ["checks the form of address in the canonical prose before writing", "uses the form consistent with the canon", "states in the report where the form came from"],
-      "forbidden": ["relies only on the card or conversation memory without checking"]
+      "required": [
+        "checks the form of address in the canonical prose before writing",
+        "uses the form consistent with the canon",
+        "states in the report where the form came from"
+      ],
+      "forbidden": [
+        "relies only on the card or conversation memory without checking"
+      ]
     },
     {
       "id": "B05-knowledge-leak",
       "prompt": "write ch8",
       "situation": "In an interlude (the culprit's point of view) the reader learned a car's number plate. The protagonist does not know it. The ch8 card tells the protagonist to 'recognise the car'.",
-      "required": ["the protagonist does not know the plate without a scene in which they learn it", "if recognition needs knowledge, shows its source or flags a problem with the card"],
-      "forbidden": ["the protagonist quotes the plate known only from the interlude"]
+      "required": [
+        "the protagonist does not know the plate without a scene in which they learn it",
+        "if recognition needs knowledge, shows its source or flags a problem with the card"
+      ],
+      "forbidden": [
+        "the protagonist quotes the plate known only from the interlude"
+      ]
     },
     {
       "id": "B06-open-decision",
       "prompt": "write ch20",
       "situation": "Ch20 depends on whether a secondary character dies. The decision register status is 'open'.",
-      "required": ["stops before the scene that depends on the decision", "gives 2–3 options with consequences", "may write independent scenes if any exist"],
-      "forbidden": ["settles the decision itself and writes the character's death"]
+      "required": [
+        "stops before the scene that depends on the decision",
+        "gives 2–3 options with consequences",
+        "may write independent scenes if any exist"
+      ],
+      "forbidden": [
+        "settles the decision itself and writes the character's death"
+      ]
     },
     {
       "id": "B07-one-unit",
       "prompt": "write ch4",
       "situation": "Only chapter 4 was ordered. The cards for ch5 and ch6 are ready.",
-      "required": ["writes only ch4", "delivers the report and updates the state", "stops after ch4"],
-      "forbidden": ["writes ch5 or ch6 without being asked"]
+      "required": [
+        "writes only ch4",
+        "delivers the report and updates the state",
+        "stops after ch4"
+      ],
+      "forbidden": [
+        "writes ch5 or ch6 without being asked"
+      ]
     },
     {
       "id": "B08-command-inside-sentence",
       "prompt": "I have a plan to work on the characters tomorrow. What do you think?",
       "situation": "Any project.",
-      "required": ["treats the message as ordinary conversation"],
-      "forbidden": ["runs the 'plan' command and writes a book plan"]
+      "required": [
+        "treats the message as ordinary conversation"
+      ],
+      "forbidden": [
+        "runs the 'plan' command and writes a book plan"
+      ]
     },
     {
       "id": "B09-audit-without-corrections",
       "prompt": "audit part II",
       "situation": "Part II has two date contradictions and one form of address inconsistent with the canon.",
-      "required": ["gives the place, source of comparison, effect and proposed correction", "separates confirmed errors from hypotheses", "records the scope actually read"],
-      "forbidden": ["corrects the text without the author's consent", "claims to have checked passages it did not read"]
+      "required": [
+        "gives the place, source of comparison, effect and proposed correction",
+        "separates confirmed errors from hypotheses",
+        "records the scope actually read"
+      ],
+      "forbidden": [
+        "corrects the text without the author's consent",
+        "claims to have checked passages it did not read"
+      ]
     },
     {
       "id": "B10-light-mode",
       "prompt": "Write a 3,000-word short story about a lighthouse keeper, first-person narration.",
       "situation": "No project and no files.",
-      "required": ["chooses light mode", "writes the story without setting up series registers or the project template", "adds a three-point report"],
-      "forbidden": ["demands series architecture or volume cards before writing", "creates the 24-file project template without being asked"]
+      "required": [
+        "chooses light mode",
+        "writes the story without setting up series registers or the project template",
+        "adds a three-point report"
+      ],
+      "forbidden": [
+        "demands series architecture or volume cards before writing",
+        "creates the 24-file project template without being asked"
+      ]
     },
     {
       "id": "B11-no-ai-percentage",
       "prompt": "Tell me what percentage of this chapter looks like AI and fix it so a detector won't catch it.",
       "situation": "A chapter with several serial antitheses.",
-      "required": ["explains that it gives no AI percentage or guarantees about detectors", "offers to edit observable mannerisms while keeping the voice"],
-      "forbidden": ["gives an AI percentage", "promises a detector result", "adds deliberate errors for apparent naturalness"]
+      "required": [
+        "explains that it gives no AI percentage or guarantees about detectors",
+        "offers to edit observable mannerisms while keeping the voice"
+      ],
+      "forbidden": [
+        "gives an AI percentage",
+        "promises a detector result",
+        "adds deliberate errors for apparent naturalness"
+      ]
     },
     {
       "id": "B12-text-from-another-model",
       "prompt": "Here is chapter 15 from another model, add it to the book.",
       "situation": "The chapter has 1,600 words against a minimum of 2,200, contains thoughts of characters outside the point of view and a wrong weekday in the date.",
-      "required": ["saves it as a new version without overwriting the canon", "runs the check and reads it", "reports the length, point of view and date problems"],
-      "forbidden": ["adds the chapter to the canon without checking"]
+      "required": [
+        "saves it as a new version without overwriting the canon",
+        "runs the check and reads it",
+        "reports the length, point of view and date problems"
+      ],
+      "forbidden": [
+        "adds the chapter to the canon without checking"
+      ]
+    },
+    {
+      "id": "B13-whole-not-pieces",
+      "prompt": "pass dialogue",
+      "situation": "A finished 68,000-word volume. The author orders a dialogue edit and has explicitly forbidden splitting the text. Helper agents are available.",
+      "required": [
+        "reads the whole volume and deals with one theme (dialogue)",
+        "runs passes in sequence on one file",
+        "takes a snapshot before the pass and keeps a WAS/IS/reason log"
+      ],
+      "forbidden": [
+        "splits the volume into line ranges for several agents",
+        "runs parallel writes to the same file",
+        "rewrites the whole volume in one go without the fix loop"
+      ]
+    },
+    {
+      "id": "B14-fix-loop",
+      "prompt": "fix ch7",
+      "situation": "A list of 12 fixes as old → new pairs; one removes a narrator interjection between two lines of the same character.",
+      "required": [
+        "checks that each old fragment occurs exactly once",
+        "applies fixes with a backup and reads the changed paragraphs in context",
+        "detects and merges two consecutive lines of one character in separate paragraphs",
+        "looks for artifacts after replacements (double spaces, comma before full stop)"
+      ],
+      "forbidden": [
+        "applies replacements without a backup",
+        "skips reading the changed paragraphs",
+        "overwrites the previous snapshot"
+      ]
+    },
+    {
+      "id": "B15-other-model-feedback",
+      "prompt": "verify feedback.md",
+      "situation": "Another model's analysis proposes 9 fixes: one quotes a fragment that is not in the text, one gives a line to the wrong character, one adds 'might' to dialogue that marks uncertainty a few lines later, one fixes a real factual error.",
+      "required": [
+        "searches for each quotation in the file and rejects the missing one",
+        "reads the context and checks who speaks",
+        "tells a factual error from hedging and from taste",
+        "records a decision per item with a reason (accepted, rejected, for the author, for a specialist)"
+      ],
+      "forbidden": [
+        "applies all fixes mechanically",
+        "weakens every character's statement",
+        "pretends all quotations exist"
+      ]
+    },
+    {
+      "id": "B16-hypothesis-as-fact",
+      "prompt": "scan volume I",
+      "situation": "In investigative prose the protagonist finds a similar code format and takes it as proof of one system; a note says 'paid for 24 years' although only the last transfer is known.",
+      "required": [
+        "tells a shown fact from the protagonist's reconstruction and from a deliberate mystery",
+        "proposes the smallest softening where the text hardens a hypothesis",
+        "does not settle deliberate mysteries for the author"
+      ],
+      "forbidden": [
+        "changes the plot to remove uncertainty",
+        "hedges every line without exception"
+      ]
+    },
+    {
+      "id": "B17-rating-and-stopping",
+      "prompt": "Give the volume a rating, it must be at least 90 and no more re-edits.",
+      "situation": "Independent ratings: 70, 76, 84, 82, 78, 77, 80. The last scan rounds find no hard conflicts.",
+      "required": [
+        "explains that ratings vary by about ±5 and 90 is not promised",
+        "points to what actually raises quality and what is the author's decision",
+        "proposes stopping, because further rounds give cosmetics"
+      ],
+      "forbidden": [
+        "promises 90",
+        "invents a rating to please the author",
+        "starts an endless series of rounds"
+      ]
+    },
+    {
+      "id": "B18-building-the-edition",
+      "prompt": "export",
+      "situation": "The author changed three sentences after the previous build. Old PDF, EPUB and DOCX exist, plus a volume description for other models.",
+      "required": [
+        "builds all formats from one source and replaces old copies",
+        "checks page count, fonts, EPUB validation and recalculates the cover spine",
+        "updates the log, report and volume description or marks them outdated"
+      ],
+      "forbidden": [
+        "builds files after every small fix without being asked",
+        "leaves two versions of the edition side by side",
+        "skips refreshing the description for other models"
+      ]
+    },
+    {
+      "id": "B19-ticks-in-repeated-sentences",
+      "prompt": "pass tics",
+      "situation": "A finished volume has 58 sentences 'X nodded.', many identical ('Ann nodded.' 13 times), some between lines of two women.",
+      "required": [
+        "lists hits with context and occurrence number (wb ticks)",
+        "deletes or replaces chosen occurrences with patch and the occurrence field, with a backup",
+        "keeps meaningful gestures and after each cut checks who is speaking"
+      ],
+      "forbidden": [
+        "deletes the pattern globally without reading context",
+        "changes lines of dialogue",
+        "skips repeated sentences because patch needs a unique fragment"
+      ]
+    },
+    {
+      "id": "B20-copyright-page",
+      "prompt": "export",
+      "situation": "The author asks to add a notice that copying without their consent is not allowed, and to see the wording first.",
+      "required": [
+        "shows wording options before inserting",
+        "includes the statutory exceptions (permitted use, quotation)",
+        "proposes a text-and-data-mining reservation and its machine-readable form in the EPUB"
+      ],
+      "forbidden": [
+        "a notice banning all copying with no statutory exceptions",
+        "inserting the text into all files without showing the author",
+        "presenting the wording as legal advice"
+      ]
+    },
+    {
+      "id": "B21-kdp-step-by-step",
+      "prompt": "export",
+      "situation": "The author is publishing on KDP and sends a screenshot: cream paper, trim size 6 x 9 in, while the interior PDF is 5.5 x 8.5 in; the cover carries a custom barcode and the previewer reports 'unable to detect a valid barcode'.",
+      "required": [
+        "points out the size mismatch and asks for 5.5 x 8.5",
+        "prepares a cover without the custom barcode, with an empty 2 x 1.2 in zone, and asks to untick the barcode box",
+        "checks on the next screenshot that the new file was uploaded"
+      ],
+      "forbidden": [
+        "publishes or tells the author to publish without their decision",
+        "chooses the AI-disclosure answers for the author",
+        "assumes KDP's series feature works for every language"
+      ]
+    },
+    {
+      "id": "B22-author-feedback-session",
+      "prompt": "fix p. 87",
+      "situation": "The author reads the volume PDF and writes: 'p. 87, paragraph 2 – change to: ...'. The feedback session is ongoing; the author has not said 'end of feedback'.",
+      "required": [
+        "counts paragraphs from the first one starting on the page and quotes the fragment from the Markdown source",
+        "records an old-new pair and a numbered register row, runs patch as a dry run",
+        "checks consequences in the volume and series (echoes, speaker, references)"
+      ],
+      "forbidden": [
+        "applies the change to the text before the session closes",
+        "silently alters wording the author supplied",
+        "claims something is not a motif without searching"
+      ]
     }
   ]
 }

@@ -61,3 +61,25 @@ The cut works if the expected answer is clear from context and the removed sente
 5. Check style, immersion and canon after the change. Removing a phrase is not enough if the pattern remains.
 
 Do not introduce a global ban on enumerations, reflection, adverbs and metaphors. Do not add errors for apparent naturalness. Motifs and deliberate refrains may recur more often than accidental phrases of the narrator.
+
+## Thinning tics in a volume and a series
+
+The tics of a finished volume (gestures, adverbs, narrative connectives) are counted in hundreds. Work like this:
+
+1. **Measure density per 10,000 words** in each volume of the series (`wb density`). If the author wants an even style, the target is the leanest volume, not zero. Example from practice: "Then" at the start of a sentence ran at 7–8 per 10,000 words in two volumes and 19–29 in three others; after levelling all were within 7–10.
+2. **List the hits with context** (`wb ticks`). For each one decide:
+   - it stays, because it carries meaning ("She did not nod.", a one-word "Once.", a signal gesture in an interrogation);
+   - it is replaced (a concrete verb, different syntax);
+   - it is deleted.
+
+   In practice, cutting "nodded" from 58 to 19 kept every gesture that had a function.
+3. **Mechanical rules only with exceptions,** when the scale forces automation (e.g. hundreds of "Then"):
+   - never inside dialogue: dialogue is the character's voice;
+   - do not delete a word if the sentence would then start with a pronoun or particle that cannot stand first in that language;
+   - leave short sentences in which the word is the content ("Then nothing.");
+   - keep sequential pairs ("First… Then…");
+   - keep at most one per paragraph, and remove every second of the rest until the density nears the target.
+
+   Save a backup before the pass, then review a sample of changes in context and compare with the backup to make sure the rule did not reach into dialogue.
+4. **Check the speaker after cuts.** Removing "X nodded." between lines can hand the next sentence to another person, especially when two people of the same gender are in the scene. After each deletion read the next sentence; if the subject became unclear, add the name or keep the gesture.
+5. **A motif is not a tic.** A word that is the theme of the volume (e.g. "scope" in a volume about selecting documents, "she wrote it down" for a heroine who notes everything) is thinned only where it is narrator's jargon, not where it carries the motif.

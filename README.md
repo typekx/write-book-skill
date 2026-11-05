@@ -33,10 +33,12 @@ The skill is general. It contains no content from any particular book; every rul
 | Formulaic prose | Reducing redundant thoughts, enumerations, mechanical antitheses, artificial punchlines and replacement tics while keeping deliberate devices. |
 | Handoff | A package for continuing the work in another model or application: standing instructions, files in order of importance, ready prompts, and how to check text that comes back. |
 | Names | A name catalogue, collision tests against real companies and places, renaming across a whole series. |
-| Publishing | Assembly order, export checks, cover and edition data as a checklist. |
+| Editing a finished volume | Themed passes over the whole text (never in ranges), the fix loop with old → new pairs, snapshots and logs, a continuity scan with category registers, verification of other models' feedback, honest stopping rules. |
+| Author feedback | Page-by-page notes on the typeset PDF collected as pairs and applied in bulk when the session closes; checking the author's own corrected version. |
+| Publishing | Assembly order, export checks, cover and edition data, copyright page, hyphenation and runts, home-print imposition, and step-by-step Amazon KDP publishing. |
 | Light mode | A lighter process for short stories, short forms and standalone books: a short card, a three-point report and no series registers. |
-| Behaviour tests | Twelve scenarios with required and forbidden behaviours, plus an automatic consistency test of the skill itself. |
-| Tools | A technical checker (weekdays, typography, work leftovers, project limits, retired names, silent shortening) and a style scanner, both read-only. |
+| Behaviour tests | Twenty-two scenarios with required and forbidden behaviours, plus an automatic consistency test of the skill itself. |
+| Tools | A technical checker (weekdays, typography, work leftovers, project limits, retired names, silent shortening), a style scanner, a tics lister and density meter (read-only), and a safe replacement tool that writes only with a backup. |
 
 ## Who it is for
 
@@ -99,6 +101,9 @@ The first word of a message may be a command, in English or Polish (Polish diacr
 | `fix` | `popraw` | corrections according to notes |
 | `edit` | `redaguj` | line editing without plot changes |
 | `proof` | `korekta` | spelling, punctuation, typography |
+| `pass` | `przebieg` | one themed pass over the whole finished volume |
+| `scan` | `skan` | continuity scan of the whole volume |
+| `verify` | `weryfikuj` | checking outside feedback in the text |
 | `style` | `styl` | style profile or analysis of mannerisms |
 | `immersion` | `immersja` | immersion analysis |
 | `check` | `sprawdź` | technical check |
@@ -127,6 +132,11 @@ Eight rules apply to every project, whatever its profile:
 6. **A removed tic comes back in disguise.** Count replacements after editing as well.
 7. **An author's decision has one source.** Open plot decisions are not settled by the assistant; it stops before the dependent scene and offers options.
 8. **Prose is clean.** No comments, work markers, hidden characters or metadata; reports and state are separate files.
+9. **A finished volume is edited as a whole.** One pass = the whole volume + one theme, in sequence on one file; never line ranges or parallel writes.
+10. **A fix is a loop.** Old → new pair, apply with a backup, read in context, then the next.
+11. **A hypothesis is not a fact.** Shown facts, a character's reconstructions and deliberate mysteries are kept apart.
+12. **Another model's feedback is checked in the text,** item by item; no promised scores.
+13. **Publication files are built on request from one source;** copyright wording, publishing, AI disclosure and price are the author's choices.
 
 ## Typical workflows
 
@@ -151,6 +161,10 @@ Eight rules apply to every project, whatever its profile:
 | [Style analysis](skills/write-book/references/style-analysis.md) | Building a style profile and preserving the voice across volumes and models |
 | [Immersion](skills/write-book/references/immersion.md) | Two-pass reading and the order of corrections |
 | [Editing formulaic prose](skills/write-book/references/formulaic-prose.md) | A catalogue of 21 patterns, disguises, replacement tics, project limits |
+| [Full-volume editing](skills/write-book/references/full-volume-editing.md) | Themed passes over the whole text, their order, the fix loop, logs, state, when to stop |
+| [Continuity scan](skills/write-book/references/continuity-scan.md) | Category registers K1–K6, verifier, control rounds, typical contradictions |
+| [Feedback verification](skills/write-book/references/feedback-verification.md) | Outside feedback as a hypothesis, T/M/? certainty marks, legal and technical detail |
+| [Author feedback session](skills/write-book/references/author-feedback-session.md) | Page-and-paragraph addressing, the notes register, bulk application, the author's own version |
 | [Series validation](skills/write-book/references/series-validation.md) | Five levels of checks, classes of continuity errors, independent review, change impact |
 | [Sources and continuity](skills/write-book/references/sources-and-continuity.md) | Choosing the current text, version traps, character and object state |
 | [Craft and control](skills/write-book/references/craft-and-control.md) | Scene and voice, point of view, hooks, content boundaries, unit checklist |
@@ -159,7 +173,8 @@ Eight rules apply to every project, whatever its profile:
 | [Technical check](skills/write-book/references/technical-check.md) | The checker's rules, built-in patterns, volume mode, comparisons |
 | [Style scanner](skills/write-book/references/style-scanner.md) | What the scanner measures and how to read it |
 | [Book repository](skills/write-book/references/book-repository.md) | Folder roles, cards, research, versioning, optional automated export |
-| [Publishing and layout](skills/write-book/references/publishing-and-layout.md) | Assembly, export checks, cover, edition data |
+| [Publishing and layout](skills/write-book/references/publishing-and-layout.md) | Assembly, export checks, cover, edition data, copyright page, build process, hyphenation, home print |
+| [KDP publishing](skills/write-book/references/kdp-publishing.md) | Amazon KDP step by step: settings, cover and barcode, previewer, AI disclosure, prices, proof |
 | [Commands](skills/write-book/references/commands.md) | One-word commands and their scope |
 | [Light mode](skills/write-book/references/light-mode.md) | What stays and what goes in light mode, the three-point report, when to switch |
 
@@ -197,6 +212,9 @@ node scripts/wb.mjs volume volume/*.md        # all units + totals and volume li
 node scripts/wb.mjs diff old.md new.md        # silent shortening, missing headings
 node scripts/wb.mjs style chapter.md          # mannerisms and repeated phrases
 node scripts/wb.mjs nbsp chapter.md out.md    # copy with non-breaking spaces (Polish typography)
+node scripts/wb.mjs patch chapter.md pairs.json --write --backup before.md   # old → new replacements
+node scripts/wb.mjs ticks -p 'nodded' chapter.md                 # sentences with a tic, in context
+node scripts/wb.mjs density -p 'nodded' v1.md v2.md              # hits per 10,000 words
 node scripts/wb.mjs help
 node --test scripts/                          # tools + skill consistency tests
 ```
@@ -256,7 +274,7 @@ skills/write-book/
 │   ├── test-style-scan.mjs
 │   └── test-skill.mjs          # consistency of the skill itself
 ├── evals/
-│   ├── scenarios.json          # 12 behaviour scenarios
+│   ├── scenarios.json          # 22 behaviour scenarios
 │   └── README.md
 └── assets/
     ├── BOOK_PROFILE.md
@@ -269,7 +287,7 @@ skills/write-book/
 
 ## Behaviour tests
 
-`evals/scenarios.json` holds twelve scenarios describing how the skill must and must not behave: no silent shortening, no "final" without measuring, `next` after a finished book asks for the goal, facts checked in the canon, no knowledge leaks, open decisions not settled by the assistant, one unit per order, a command word inside a sentence is not a command, audits do not correct, short stories use light mode, no "AI percentage", text from another model is checked before it enters the canon. Run them by hand or with an evaluation tool; see [evals/README.md](skills/write-book/evals/README.md). `node --test scripts/` additionally checks the skill's own consistency (header, `SKILL.md` word limit, links, commands).
+`evals/scenarios.json` holds twenty-two scenarios describing how the skill must and must not behave: no silent shortening, no "final" without measuring, `next` after a finished book asks for the goal, facts checked in the canon, no knowledge leaks, open decisions not settled by the assistant, one unit per order, a command word inside a sentence is not a command, audits do not correct, short stories use light mode, no "AI percentage", text from another model is checked before it enters the canon, a finished volume is edited as a whole, fixes go through the loop, outside feedback is verified, hypotheses are not hardened into facts, ratings are not promised, editions are built from one source, repeated tics are thinned with context, the copyright page is the author's decision, KDP is guided step by step, and an author's feedback session is applied only when closed. Run them by hand or with an evaluation tool; see [evals/README.md](skills/write-book/evals/README.md). `node --test scripts/` additionally checks the skill's own consistency (header, `SKILL.md` word limit, links, commands).
 
 ## Limitations
 
