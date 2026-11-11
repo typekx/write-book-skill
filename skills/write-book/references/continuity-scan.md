@@ -62,6 +62,11 @@ Only the first is an error to fix without asking. Treat the second as a matter o
 - **Roles and titles across volumes:** "board member" in one volume and "board's proxy" in a document from another. Decide by the document quoted in the prose of the earlier volume.
 - **Names of courts, offices and units** in different versions, and declension of foreign names in inflected languages.
 
+- **An object in a scene although it was elsewhere:** something "on his wrist" or "in her pocket" at the moment of an event, when an earlier volume (an inventory of belongings, a deposit, a flat) placed it somewhere else.
+- **The "previously" page and the cast list:** date range of earlier volumes, missing characters who entered in them, events described differently from the prose.
+- **Years of service and ages in flashbacks:** years at work or a child's age in a scene from years ago counted from a different year than in the volume that established them.
+- **Building layout:** floor of the premises, what is on the ground floor, number of stairs; check every return to the same address.
+
 **Before you fix a "contradiction with an earlier volume", find the scene in that volume's prose.** Memory and summaries mislead. In one case the "first interrogation in February" turned out to be the second; the first, in December, was in the same room, so the "fix" would have introduced an error. Search for the place or prop in all volumes and read the date headings around the hits.
 
 ## Source of truth

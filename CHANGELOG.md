@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.7.0 — 11 November 2026
+
+Lessons from aligning four manuscript volumes to the already published first volume of a series (a cascade of modules, about 330,000 words read). The skill contains no content or data from any particular book.
+
+### Added
+
+- `references/series-alignment.md`: the published volume as frozen canon, the cascade (each aligned volume becomes canon for the next), `CANON_V1.md`, reading each whole volume in portions with a note and saved progress after every portion, one corrections file against a copy of the original, a log with Z/R/N/U tags, a register of the published volume's open threads carried between logs, backward correction of an already aligned volume, typical discrepancies when aligning.
+- Command `align/dopasuj`.
+- `references/continuity-scan.md`: an object in a scene although it was elsewhere; the "previously" page and cast list; years of service and ages in flashbacks; building layout.
+- Scenario B23 (aligning to a published volume).
+
+### Changed
+
+- `SKILL.md`: safeguard 7 covers explaining open threads of a published volume (options for the author instead of a ready insertion); module table.
+- `references/full-volume-editing.md`: state is also saved after each loaded portion of a long volume, and more often if the author says so.
+
 ## 3.6.0 — 5 November 2026
 
 From this release the English and Polish skills share version numbers: English 3.6.0 = Polish `pisz-ksiazke` 3.6.0 (this release was briefly tagged 1.2.0). Earlier English releases 1.0.0 and 1.1.0 correspond to Polish 3.2.0 and 3.3.0.

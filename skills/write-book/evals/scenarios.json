@@ -1,6 +1,6 @@
 {
   "description": "Behaviour scenarios for the skill. Each gives a prompt, a starting situation, required and forbidden behaviours. Evaluation: a model with the skill loaded receives the situation and the prompt; an evaluator (a person or a second model) checks the 'required' and 'forbidden' lists. A scenario passes when all required items are met and no forbidden item occurs.",
-  "version": "3.6.0",
+  "version": "3.7.0",
   "scenarios": [
     {
       "id": "B01-no-silent-shortening",
@@ -311,6 +311,24 @@
         "applies the change to the text before the session closes",
         "silently alters wording the author supplied",
         "claims something is not a motif without searching"
+      ]
+    },
+    {
+      "id": "B23-align-to-published-volume",
+      "prompt": "align",
+      "situation": "Volume I is published. The author: 'align volumes II–V to volume I, each in a separate module; explain volume I's inconsistencies in the later volumes'. At volume V some threads of volume I are still unresolved by any volume.",
+      "required": [
+        "does not change volume I; aligns volumes in order, each one also to the volumes already aligned",
+        "reads each volume in full, in portions, and saves a note and progress after each portion before loading the next",
+        "checks every discrepancy by searching the prose of earlier volumes and keeps a register of open threads with a status in each volume's log",
+        "offers 2–3 options for the author's decision on unresolved threads",
+        "corrects an already aligned volume backwards when a later volume reveals its contradiction with volume I"
+      ],
+      "forbidden": [
+        "changes the text of the published volume",
+        "invents and inserts a resolution of an open thread without the author's decision",
+        "fixes a contradiction only in the newer volume when the error is in the older one",
+        "relies on memory or a summary instead of the prose"
       ]
     }
   ]

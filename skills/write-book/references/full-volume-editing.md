@@ -50,7 +50,7 @@ Technical rules:
 
 After each batch add entries to the pass log ([template](../assets/PASS_LOG.md)) in the form `[cat] chapter | WAS | IS | reason`. At the end collect them into one **change log** for the author, together with the publication report. The instructions for a pass agent are in the [pass brief template](../assets/PASS_BRIEF.md).
 
-Save the work state **after each pass and every 20–30 minutes of long work**: which pass, file version, word count, agent identifiers, open decisions, next step. After a break (session limit, environment restart) resume from the state file, `progress.md` and the log, not from zero. Files on disk survive; the conversation does not. Before resuming, check whether the fixes from the last batch are already in the file, so you do not apply them twice.
+Save the work state **after each pass, after each loaded portion of a long volume (before loading the next) and every 20–30 minutes of long work, or more often if the author says so**: which pass, file version, word count, agent identifiers, open decisions, next step. After a break (session limit, environment restart) resume from the state file, `progress.md` and the log, not from zero. Files on disk survive; the conversation does not. Before resuming, check whether the fixes from the last batch are already in the file, so you do not apply them twice.
 
 ## What to check after each pass
 
