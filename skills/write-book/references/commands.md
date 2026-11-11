@@ -34,6 +34,7 @@ One-word commands speed up common requests. The author may write in English or P
 | `audit` | `audyt` | canon and continuity audit of the range ([validation](series-validation.md)) | report, no corrections |
 | `diff` | `porównaj` | comparison of two versions: length, headings, changed facts | report |
 | `impact` | `wpływ` | consequences of changing a fact across scenes and volumes | report and list of changes |
+| `align` | `dopasuj` | align the given volume to the published volume and the volumes already aligned, with a register of open threads ([alignment](series-alignment.md)) | one volume: file, log, progress |
 | `names` | `nazwy` | name catalogue, collision test, renaming ([names](names-and-collisions.md)) | report; replacement after consent |
 | `decisions` | `decyzje` | list of open decisions with options and recommendations | no text changes |
 | `handoff` | `przekaż` | handoff package for another model ([handoff](model-handoff.md)) | package |

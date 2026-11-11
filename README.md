@@ -110,6 +110,7 @@ The first word of a message may be a command, in English or Polish (Polish diacr
 | `audit` | `audyt` | canon and continuity audit, no corrections |
 | `diff` | `porównaj` | comparison of two versions |
 | `impact` | `wpływ` | consequences of changing a fact |
+| `align` | `dopasuj` | aligning a volume to a published volume |
 | `names` | `nazwy` | name catalogue and collisions |
 | `decisions` | `decyzje` | the author's open decisions |
 | `handoff` | `przekaż` | package for another model |
@@ -165,6 +166,7 @@ Eight rules apply to every project, whatever its profile:
 | [Continuity scan](skills/write-book/references/continuity-scan.md) | Category registers K1–K6, verifier, control rounds, typical contradictions |
 | [Feedback verification](skills/write-book/references/feedback-verification.md) | Outside feedback as a hypothesis, T/M/? certainty marks, legal and technical detail |
 | [Author feedback session](skills/write-book/references/author-feedback-session.md) | Page-and-paragraph addressing, the notes register, bulk application, the author's own version |
+| [Series alignment](skills/write-book/references/series-alignment.md) | The published volume as frozen canon, cascade of modules, register of open threads, backward correction |
 | [Series validation](skills/write-book/references/series-validation.md) | Five levels of checks, classes of continuity errors, independent review, change impact |
 | [Sources and continuity](skills/write-book/references/sources-and-continuity.md) | Choosing the current text, version traps, character and object state |
 | [Craft and control](skills/write-book/references/craft-and-control.md) | Scene and voice, point of view, hooks, content boundaries, unit checklist |
@@ -260,6 +262,7 @@ skills/write-book/
 │   ├── immersion.md
 │   ├── formulaic-prose.md
 │   ├── series-validation.md
+│   ├── series-alignment.md
 │   ├── model-handoff.md
 │   ├── names-and-collisions.md
 │   ├── technical-check.md
