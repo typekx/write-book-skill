@@ -2,7 +2,7 @@
 name: write-book
 description: "Design books and multi-volume series, analyse and preserve the author's style, write and edit prose unit by unit with checks of canon, character knowledge, immersion and formulaic mannerisms. Also use for series bibles, chapter cards, handing work over to another model, proper names, research, audits and whole-volume edits, continuity scans, author feedback sessions, project organisation, series alignment and KDP publishing. Understands one-word commands in English and Polish (write/pisz, next/dalej, audit/audyt, check/sprawdź…). Has a light mode for short stories and short forms."
 metadata:
-  version: "3.7.0"
+  version: "3.7.1"
 ---
 
 # Write a book
@@ -59,7 +59,7 @@ By default: light for texts up to about 20,000 words and single editing jobs, fu
 | Scene, point of view, content boundaries, unit check | [Craft and control](references/craft-and-control.md) |
 | Proper names and collisions | [Names and collisions](references/names-and-collisions.md) |
 | Work in another model or application | [Handoff between models](references/model-handoff.md) |
-| Counters, dates, typography, comparing versions | [Technical check](references/technical-check.md) |
+| Counters, dates, typography, comparing versions, phrase scan | [Technical check](references/technical-check.md), [Style scanner](references/style-scanner.md) |
 | Book folder organisation | [Book repository](references/book-repository.md) |
 | Typesetting, cover, edition | [Publishing and layout](references/publishing-and-layout.md) |
 | Publishing with Amazon KDP | [KDP publishing](references/kdp-publishing.md) |
@@ -86,7 +86,7 @@ Judge a device's function and accumulation, not the phrase; enforce the author's
 
 When a fact changes, find the dependencies in later scenes and earlier volumes; do not silently change the past. An audit gives the place, the source of comparison, the effect and the correction, separating errors from hypotheses. If possible, get a review from someone who did not write the text; otherwise record the limitation. An unresolved contradiction blocks only dependent scenes.
 
-Tools (Node.js 20+): `node scripts/wb.mjs check|volume|diff|style|nbsp|ticks|density` (read-only) and `patch` (writes only with `--write --backup`) ([technical check](references/technical-check.md)). A tool's result does not replace reading.
+Tools (Node.js 20+): `node scripts/wb.mjs check|volume|diff|style|nbsp|ticks|density` (read-only) and `patch` (writes only with `--write --backup`) ([technical check](references/technical-check.md)).
 
 ## After every unit
 

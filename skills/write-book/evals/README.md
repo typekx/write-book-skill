@@ -3,7 +3,7 @@
 Two kinds of checks:
 
 1. **Skill consistency** — automatic, no model needed: `node --test scripts/` also runs `test-skill.mjs`. It checks that `SKILL.md` has a header with name, description and version and stays within the word limit, that every Markdown link points to an existing file, that every command in the table in `references/commands.md` is listed in `SKILL.md`, and that `evals/scenarios.json` is well formed.
-2. **Model behaviour** — [scenarios.json](scenarios.json): twenty-two situations with a prompt, a starting state and lists of required and forbidden behaviours (silent shortening, "final" without measuring, `next` after a finished book, checking facts in the canon, knowledge leaks, open decisions, one unit, a command inside a sentence, audit without corrections, light mode, "AI percentage", text from another model, whole-volume editing, the fix loop, verifying another model's feedback, hypothesis as fact, rating without promises, building the edition, tics in repeated sentences, the copyright page, KDP step by step, an author feedback session).
+2. **Model behaviour** — [scenarios.json](scenarios.json): twenty-three situations with a prompt, a starting state and lists of required and forbidden behaviours (silent shortening, "final" without measuring, `next` after a finished book, checking facts in the canon, knowledge leaks, open decisions, one unit, a command inside a sentence, audit without corrections, light mode, "AI percentage", text from another model, whole-volume editing, the fix loop, verifying another model's feedback, hypothesis as fact, rating without promises, building the edition, tics in repeated sentences, the copyright page, KDP step by step, an author feedback session).
 
 ## How to run the scenarios
 

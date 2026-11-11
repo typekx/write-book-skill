@@ -37,7 +37,7 @@ The skill is general. It contains no content from any particular book; every rul
 | Author feedback | Page-by-page notes on the typeset PDF collected as pairs and applied in bulk when the session closes; checking the author's own corrected version. |
 | Publishing | Assembly order, export checks, cover and edition data, copyright page, hyphenation and runts, home-print imposition, and step-by-step Amazon KDP publishing. |
 | Light mode | A lighter process for short stories, short forms and standalone books: a short card, a three-point report and no series registers. |
-| Behaviour tests | Twenty-two scenarios with required and forbidden behaviours, plus an automatic consistency test of the skill itself. |
+| Behaviour tests | Twenty-three scenarios with required and forbidden behaviours, plus an automatic consistency test of the skill itself. |
 | Tools | A technical checker (weekdays, typography, work leftovers, project limits, retired names, silent shortening), a style scanner, a tics lister and density meter (read-only), and a safe replacement tool that writes only with a backup. |
 
 ## Who it is for
@@ -277,7 +277,7 @@ skills/write-book/
 │   ├── test-style-scan.mjs
 │   └── test-skill.mjs          # consistency of the skill itself
 ├── evals/
-│   ├── scenarios.json          # 22 behaviour scenarios
+│   ├── scenarios.json          # 23 behaviour scenarios
 │   └── README.md
 └── assets/
     ├── BOOK_PROFILE.md
@@ -290,7 +290,7 @@ skills/write-book/
 
 ## Behaviour tests
 
-`evals/scenarios.json` holds twenty-two scenarios describing how the skill must and must not behave: no silent shortening, no "final" without measuring, `next` after a finished book asks for the goal, facts checked in the canon, no knowledge leaks, open decisions not settled by the assistant, one unit per order, a command word inside a sentence is not a command, audits do not correct, short stories use light mode, no "AI percentage", text from another model is checked before it enters the canon, a finished volume is edited as a whole, fixes go through the loop, outside feedback is verified, hypotheses are not hardened into facts, ratings are not promised, editions are built from one source, repeated tics are thinned with context, the copyright page is the author's decision, KDP is guided step by step, and an author's feedback session is applied only when closed. Run them by hand or with an evaluation tool; see [evals/README.md](skills/write-book/evals/README.md). `node --test scripts/` additionally checks the skill's own consistency (header, `SKILL.md` word limit, links, commands).
+`evals/scenarios.json` holds twenty-three scenarios describing how the skill must and must not behave: no silent shortening, no "final" without measuring, `next` after a finished book asks for the goal, facts checked in the canon, no knowledge leaks, open decisions not settled by the assistant, one unit per order, a command word inside a sentence is not a command, audits do not correct, short stories use light mode, no "AI percentage", text from another model is checked before it enters the canon, a finished volume is edited as a whole, fixes go through the loop, outside feedback is verified, hypotheses are not hardened into facts, ratings are not promised, editions are built from one source, repeated tics are thinned with context, the copyright page is the author's decision, KDP is guided step by step, and an author's feedback session is applied only when closed. Run them by hand or with an evaluation tool; see [evals/README.md](skills/write-book/evals/README.md). `node --test scripts/` additionally checks the skill's own consistency (header, `SKILL.md` word limit, links, commands).
 
 ## Limitations
 

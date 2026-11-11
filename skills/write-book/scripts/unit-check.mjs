@@ -206,6 +206,12 @@ export function checkVolume(inputs, rules = {}) {
   };
 }
 
+function sameFile(a, b) {
+  const x = statSync(a), y = statSync(b);
+  if (x.ino !== 0 && x.dev === y.dev && x.ino === y.ino) return true;
+  return process.platform === 'win32' && a.toLowerCase() === b.toLowerCase();
+}
+
 function loadFile(arg) {
   const path = realpathSync(resolve(arg));
   if (!statSync(path).isFile()) throw new Error(`Input is not a file: ${arg}`);
@@ -264,7 +270,7 @@ function main(args) {
   }
   const input = loadFile(files[0]);
   const previous = opts['--compare'] ? loadFile(opts['--compare']) : null;
-  if (previous && previous.path.toLowerCase() === input.path.toLowerCase()) throw new Error('The comparison file is the same as the input.');
+  if (previous && sameFile(previous.path, input.path)) throw new Error('The comparison file is the same as the input.');
   const report = { file: input.path, ...checkUnit(input.text, rules, previous?.text ?? null) };
   if (opts['--nbsp']) {
     const out = resolve(opts['--nbsp']);

@@ -14,10 +14,18 @@ const RULES = [
 ];
 
 // Selects the analysed range only. The input text is never written.
+// Frontmatter is a YAML block with keys; a lone scene break "---" at the start of a file is not one.
+function looksLikeFrontmatter(lines) {
+  const end = lines.findIndex((l, i) => i > 0 && /^(---|\.\.\.)\s*$/.test(l));
+  if (end < 0) return false;
+  const first = lines.slice(1, end).find(l => l.trim());
+  return !first || /^[\p{L}_][\p{L}\p{N}_-]*\s*:/u.test(first);
+}
+
 export function proseLines(text) {
   const lines = text.replace(/^﻿/, '').split(/\r?\n/);
   const result = [];
-  let frontmatter = lines[0]?.trim() === '---';
+  let frontmatter = lines[0]?.trim() === '---' && looksLikeFrontmatter(lines);
   let fence = null;
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
