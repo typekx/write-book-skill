@@ -61,3 +61,10 @@ test('behaviour scenarios are well formed', () => {
     for (const key of ['required', 'forbidden']) assert.ok(Array.isArray(s[key]) && s[key].length, `${s.id}: ${key}`);
   }
 });
+
+test('every module in references/ is named in SKILL.md and in the README', () => {
+  const readme = readFileSync(resolve(ROOT, '..', '..', 'README.md'), 'utf8');
+  const files = readdirSync(join(ROOT, 'references')).filter(n => n.endsWith('.md'));
+  assert.deepEqual(files.filter(n => !skill.includes(n)), [], 'brak w SKILL.md');
+  assert.deepEqual(files.filter(n => !readme.includes(n)), [], 'brak w README');
+});

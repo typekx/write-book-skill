@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.7.1 — 11 November 2026
+
+Review of the whole skill: three tool bugs and documentation inconsistencies. No change to the skill's behaviour. Same as Polish `pisz-ksiazke` 3.7.1.
+
+### Fixed
+
+- `wb style` and `wb check`: a prose file starting with a lone scene break `---` was treated as frontmatter, and all prose up to the next `---` dropped out of the analysis (ticks were not counted, `proseWords` was too low). Frontmatter is now only a block with a YAML key and a closing line; an unterminated block no longer swallows the prose.
+- `wb diff` (and `unit-check --compare`): two different files differing only in name case were rejected as "the same file" on case-sensitive file systems. File identity is now checked by inode.
+- `wb`: an unknown option (e.g. `--foo`) gave a misleading file-count error; it now says "Unknown option".
+
+### Changed
+
+- `SKILL.md`: the "Style scanner" module is in the module table (it was reachable only through the technical check).
+- README: the scenario count is 23 everywhere.
+- `test-skill.mjs`: every file in `references/` must be named in `SKILL.md` and in the README; regression tests for the three fixes.
+
 ## 3.7.0 — 11 November 2026
 
 Lessons from aligning four manuscript volumes to the already published first volume of a series (a cascade of modules, about 330,000 words read). The skill contains no content or data from any particular book.

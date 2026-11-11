@@ -57,6 +57,12 @@ export function findRules(startPath) {
   return null;
 }
 
+function sameFile(a, b) {
+  const x = statSync(a), y = statSync(b);
+  if (x.ino !== 0 && x.dev === y.dev && x.ino === y.ino) return true;
+  return process.platform === 'win32' && a.toLowerCase() === b.toLowerCase();
+}
+
 function load(path) {
   const real = realpathSync(resolve(path));
   if (!statSync(real).isFile()) throw new Error(`Input is not a file: ${path}`);
@@ -118,6 +124,8 @@ export function run(argv) {
     } else if (['--context', '--kontekst'].includes(rest[i])) {
       context = Number(rest[++i]);
       if (!Number.isInteger(context) || context < 0) throw new Error('--context takes a number of characters.');
+    } else if (rest[i].startsWith('-') && rest[i].length > 1 && !existsSync(rest[i])) {
+      throw new Error(`Unknown option ${rest[i]}; see: node scripts/wb.mjs help.`);
     } else files.push(rest[i]);
   }
   if (!files.length) throw new Error('Give a file; see: node scripts/wb.mjs help');
@@ -147,7 +155,7 @@ export function run(argv) {
   if (cmd === 'diff') {
     if (files.length !== 2) throw new Error('diff takes two files: old.md new.md');
     const [old, now] = files.map(load);
-    if (old.path.toLowerCase() === now.path.toLowerCase()) throw new Error('The same file was given twice.');
+    if (sameFile(old.path, now.path)) throw new Error('The same file was given twice.');
     const report = withRules({ file: now.path, previous: old.path, ...checkUnit(now.text, rules, old.text) });
     return { report, fail: report.errors.length > 0 };
   }

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { findRules, normalizeCommand, run } from './wb.mjs';
@@ -42,4 +42,18 @@ test('nbsp never overwrites; diff needs two files; unknown command fails', () =>
 
 test('help without arguments', () => {
   assert.match(run([]).text, /check  \| sprawdz/);
+});
+
+test('diff: two files differing only in name case are two files', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'wb-case-'));
+  writeFileSync(join(dir, 'a.md'), 'Old text.\nSecond line.\n');
+  writeFileSync(join(dir, 'A.md'), 'Old text.\n');
+  if (readdirSync(dir).length < 2) return; // case-insensitive file system
+  const r = run(['diff', join(dir, 'a.md'), join(dir, 'A.md')]);
+  assert.ok(r.report.porownanie || r.report.comparison, 'comparison report');
+  assert.throws(() => run(['diff', join(dir, 'a.md'), join(dir, 'a.md')]), /same file/);
+});
+
+test('an unknown option is a readable error, not a file', () => {
+  assert.throws(() => run(['check', '--foo', 'x.md']), /Unknown option --foo/);
 });

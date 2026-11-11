@@ -41,3 +41,13 @@ test('empty text gives defined metrics without division by zero', () => {
   assert.equal(r.files[0].hitsPer1000Words, 0);
   assert.equal(r.files[0].medianWordsPerParagraph, 0);
 });
+
+test('a lone scene break at the start of a file is not frontmatter', () => {
+  const text = '---\nShe clenched her jaw and went on.\n\nSecond paragraph.\n---\nThird scene.';
+  const r = analyzeTexts([{ path: 'a.md', text }]);
+  assert.ok(r.files[0].words >= 10, `words: ${r.files[0].words}`);
+});
+test('unterminated frontmatter does not swallow the prose', () => {
+  const r = analyzeTexts([{ path: 'a.md', text: '---\nNot actually a header.' }]);
+  assert.equal(r.files[0].words, 4);
+});
